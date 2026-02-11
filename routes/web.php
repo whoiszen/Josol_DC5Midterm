@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\JobPostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -24,25 +25,24 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/job-post', function () {
-    return Inertia::render('JobPost');
-})->name('job-post');
+Route::get('/about-page', function () {
+    return Inertia::render('AboutPage');
+})->name('about-page');
 
-Route::get('/job-track', function () {
-    return Inertia::render('JobTrack');
-})->middleware(['auth', 'verified'])->name('job-track');
-
+Route::get('/available-jobs', [JobPostController::class, 'index'])
+    ->middleware('auth')
+    ->name('jobs.available');
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/jobs', [JobController::class, 'index'])
-        ->name('job-post');
+    Route::get('/dashboard', [JobPostController::class, 'dashboard'])
+        ->name('dashboard');
 
-    Route::post('/jobs/{job}/apply', [ApplicationController::class, 'store'])
-        ->name('job.apply');
+    Route::get('/jobposts/create', [JobPostController::class, 'create'])
+        ->name('jobposts.create');
 
-    Route::get('/applications', [ApplicationController::class, 'index'])
-        ->name('job-track');
+    Route::post('/jobposts', [JobPostController::class, 'store'])
+        ->name('jobposts.store');
 });
 
 require __DIR__.'/auth.php';

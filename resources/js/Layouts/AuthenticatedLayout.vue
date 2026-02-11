@@ -39,13 +39,20 @@ const showingNavigationDropdown = ref(false);
                                 >
                                     Dashboard
                                 </NavLink>
+                                 <NavLink
+                                    :href="route('jobposts.create')"
+                                >
+                                    Post New Job
+                                </NavLink>
 
                                 <NavLink
-                                    :href="route('job-track')"
-                                    :active="route().current('job-track')"
+                                    :href="route('jobs.available')"
+                                    :active="route().current('jobs.available')"
                                 >
-                                    Applied Jobs
+                                    Available Jobs
                                 </NavLink>
+
+
                             </div>
                         </div>
 
@@ -153,6 +160,19 @@ const showingNavigationDropdown = ref(false);
                         >
                             Dashboard
                         </ResponsiveNavLink>
+
+                        <ResponsiveNavLink
+                            :href="route('dashboard') + '#create'"
+                        >
+                            Post New Job
+                        </ResponsiveNavLink>
+
+                        <ResponsiveNavLink
+                            :href="route('jobs.available')"
+                        >
+                            Available Jobs
+                        </ResponsiveNavLink>
+
                     </div>
 
                     <!-- Responsive Settings Options -->

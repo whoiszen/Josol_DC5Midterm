@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('job_track', function (Blueprint $table) {
+       Schema::create('job_posts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('job_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->string('status')->default('applied');
-            // applied | reviewed | shortlisted | rejected | hired
-            $table->text('cover_letter')->nullable();
+            $table->string('title');
+            $table->text('description');
+            $table->decimal('salary', 10, 2)->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('job_posts');
     }
 };
